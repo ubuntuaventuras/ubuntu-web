@@ -215,6 +215,16 @@
             font-size: 0.78rem; color: var(--muted);
         }
         .footer-mini a { color: var(--prim); }
+        .btn-descarga {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--acent); color: var(--dark);
+            padding: 12px 24px; border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem; font-weight: 700;
+            text-decoration: none; margin-top: 20px;
+            cursor: pointer; border: none;
+        }
+        .btn-descarga:hover { background: #d4a832; }
     </style>
 </head>
 <body>
@@ -406,9 +416,13 @@
     <h2>¡Contrato firmado!</h2>
     <p>
         Tu contrato ha sido registrado correctamente.<br>
-        Guarda el número de referencia: <strong id="contrato-id-ok"></strong>
+        Número de referencia: <strong id="contrato-id-ok"></strong>
     </p>
     <br>
+    <button class="btn-descarga" id="btn-descargar-pdf" onclick="descargarPDF()">
+        📄 Descargar mi contrato en PDF
+    </button>
+    <br><br>
     <p style="font-size:0.85rem;">
         Ubuntu Aventuras te espera.<br>
         📞 655 703 034 · 💬 Bizum: 605 702 670
@@ -683,6 +697,9 @@ async function guardarContrato() {
             document.getElementById('formulario').style.display = 'none';
             document.getElementById('exito-screen').classList.add('visible');
             document.getElementById('contrato-id-ok').textContent = `#${id || '—'}`;
+            // Guardar datos para PDF
+            window._contratoFirmado = { ...datos, id: id };
+            window._firmaDataURL = canvas.toDataURL('image/png');
         } else {
             throw new Error(result?.message || `Error ${res.status}`);
         }
@@ -695,10 +712,156 @@ async function guardarContrato() {
         msg.scrollIntoView({ behavior: 'smooth' });
     }
 }
+// ── DESCARGAR PDF (usa jsPDF desde CDN) ──
+function descargarPDF() {
+    const d = window._contratoFirmado;
+    if (!d) return;
+
+    // Cargar jsPDF dinámicamente si no está
+    if (typeof window.jspdf === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        script.onload = () => _generarPDF(d);
+        document.head.appendChild(script);
+    } else {
+        _generarPDF(d);
+    }
+}
+
+function _generarPDF(d) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+    const PRIM  = [46, 91, 107];
+    const ACENT = [225, 190, 124];
+    const LIGHT = [240, 246, 248];
+
+    let y = 15;
+
+    // Cabecera
+    doc.setFillColor(...PRIM);
+    doc.rect(0, 0, 210, 28, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('CONTRATO DE ALQUILER — UBUNTU AVENTURAS', 105, 12, { align: 'center' });
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text('PTA-LE78 · Tel. 655 703 034 · Bizum: 605 702 670 · hola@ubuntuaventuras.es', 105, 20, { align: 'center' });
+    y = 36;
+
+    // Nº contrato
+    doc.setTextColor(...PRIM);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Contrato nº: #${d.id || '—'}`, 14, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
+    doc.text(`Firmado: ${new Date(d.firmado_en || Date.now()).toLocaleString('es-ES')}`, 130, y);
+    y += 8;
+
+    // Línea dorada
+    doc.setDrawColor(...ACENT);
+    doc.setLineWidth(0.8);
+    doc.line(14, y, 196, y);
+    y += 6;
+
+    // Sección: datos cliente
+    const seccion = (titulo) => {
+        doc.setFillColor(...LIGHT);
+        doc.rect(14, y, 182, 7, 'F');
+        doc.setTextColor(...PRIM);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.text(titulo, 16, y + 5);
+        y += 10;
+    };
+
+    const campo = (label, valor) => {
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...PRIM);
+        doc.setFontSize(8);
+        doc.text(label, 16, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(50, 50, 50);
+        doc.text(String(valor || '—'), 70, y);
+        y += 6;
+    };
+
+    seccion('DATOS DEL CLIENTE');
+    campo('Nombre:', d.nombre);
+    campo('DNI / Pasaporte:', d.dni);
+    campo('Fecha de nacimiento:', d.fecha_nacimiento || '—');
+    campo('Teléfono:', d.telefono);
+    campo('Email:', d.email || '—');
+    campo('Provincia / Ciudad:', d.provincia);
+    y += 2;
+
+    seccion('DATOS DE LA ACTIVIDAD');
+    campo('Actividad:', d.actividad);
+    campo('Fecha:', new Date(d.fecha_actividad).toLocaleDateString('es-ES'));
+    campo('Hora inicio:', (d.hora_inicio || '').slice(0,5));
+    campo('Duración:', d.duracion);
+    campo('Personas:', d.cantidad);
+    campo('Precio total:', `${parseFloat(d.precio || 0).toFixed(2)} EUR`);
+    y += 2;
+
+    // Condiciones (resumidas)
+    seccion('CONDICIONES GENERALES (aceptadas)');
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(80, 80, 80);
+    doc.setFontSize(7);
+    const clausulas = [
+        "Uso recreativo. Prohibido uso deportivo o competitivo.",
+        "Chaleco salvavidas obligatorio en todo momento.",
+        "Responsable del material alquilado. Mayor de 18 años.",
+        "Pago al inicio: efectivo, tarjeta o Bizum.",
+        "Sin reembolso por entrega anticipada.",
+        "Respetar entorno y personal de Ubuntu Aventuras.",
+        "Material devuelto en buen estado. Daños/pérdidas se abonarán.",
+        "+10 min de retraso = 1 hora adicional completa.",
+        "Empresa puede suspender actividad por causas justificadas.",
+        "No responsabilidad por objetos personales.",
+        "Sin garantía de asistencia en averías.",
+        "El cliente asume sanciones por mal uso.",
+        "Menores bajo responsabilidad del tutor legal.",
+    ];
+    clausulas.forEach((c, i) => {
+        if (y > 250) { doc.addPage(); y = 20; }
+        doc.text(`${i+1}. ${c}`, 16, y, { maxWidth: 178 });
+        y += 5;
+    });
+    y += 4;
+
+    // Firma
+    if (y > 220) { doc.addPage(); y = 20; }
+    seccion('FIRMA DEL CLIENTE');
+    const firma = window._firmaDataURL;
+    if (firma && firma.startsWith('data:image')) {
+        try {
+            doc.addImage(firma, 'PNG', 14, y, 60, 20);
+        } catch(e) {}
+    }
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(80, 80, 80);
+    doc.text(`${d.nombre || ''} — Firmado digitalmente`, 14, y + 25);
+    y += 32;
+
+    // Footer
+    doc.setDrawColor(...ACENT);
+    doc.line(14, y, 196, y);
+    y += 5;
+    doc.setFontSize(7);
+    doc.setTextColor(150, 150, 150);
+    doc.text('Ubuntu Aventuras · CIF 09806738K · Carretera Riaño-Verdiago, 24960 Verdiago (León)', 105, y, { align: 'center' });
+
+    doc.save(`contrato_${d.id || 'ubuntu'}_${(d.nombre || '').replace(/\s+/g,'_')}.pdf`);
+}
 </script>
 </body>
 </html>
-
 </script>
 </body>
 </html>
