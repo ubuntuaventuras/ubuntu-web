@@ -48,26 +48,31 @@
         .participante-titulo { font-size: 0.8rem; font-weight: 700; color: var(--prim); margin-bottom: 10px; }
         #btn-add-part { width: 100%; padding: 10px; background: transparent; border: 2px dashed var(--prim); border-radius: 8px; color: var(--prim); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
 
+        /* Cláusulas */
         .clausulas-box { background: var(--light); border-radius: 8px; padding: 14px; max-height: 200px; overflow-y: auto; font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
         .clausulas-box p { margin-bottom: 5px; }
 
+        /* Checks */
         .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: var(--light); border-radius: 8px; margin-bottom: 10px; }
         .check-item input[type="checkbox"] { width: 20px; height: 20px; min-width: 20px; margin-top: 2px; accent-color: var(--prim); cursor: pointer; }
         .check-item label { font-size: 0.85rem; line-height: 1.5; color: var(--text); cursor: pointer; }
         .check-item a { color: var(--prim); }
 
+        /* Firma */
         .firma-container { border: 2px solid var(--prim); border-radius: 10px; overflow: hidden; background: var(--white); margin-bottom: 10px; touch-action: none; }
         #canvas-firma { display: block; width: 100%; height: 160px; cursor: crosshair; }
         .btn-limpiar { padding: 10px 20px; background: var(--light); border: none; border-radius: 8px; color: var(--prim); font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
         .firma-ok { background: #d4edda; color: #155724; border-radius: 8px; padding: 8px 14px; font-size: 0.85rem; display: none; }
         .firma-ok.visible { display: block; }
 
+        /* Botón guardar */
         .btn-guardar { width: calc(100% - 32px); margin: 16px; padding: 18px; background: var(--prim); color: var(--white); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; display: block; }
         .btn-guardar:disabled { background: #aaa; cursor: not-allowed; }
 
         .msg { margin: 0 16px 16px; padding: 14px 18px; border-radius: 10px; font-size: 0.9rem; display: none; }
         .msg.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
 
+        /* Éxito */
         .exito-screen { display: none; text-align: center; padding: 50px 20px; }
         .exito-screen.visible { display: block; }
         .exito-icon { font-size: 4rem; margin-bottom: 16px; }
@@ -82,6 +87,7 @@
         .aviso-actividad { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 12px 14px; font-size: 0.85rem; color: #856404; margin-bottom: 12px; display: none; }
         .aviso-actividad.visible { display: block; }
 
+        /* ── RESPONSIVE MÓVIL ── */
         @media (max-width: 480px) {
             .campo-row { grid-template-columns: 1fr; gap: 0; }
             .seccion { padding: 16px 14px; margin: 8px 10px; }
@@ -104,19 +110,14 @@
             .footer-mini { padding: 14px; }
             .participante { padding: 10px; }
         }
-
-        .act-extra { background: var(--light); border-radius: 8px; padding: 12px; margin-bottom: 10px; position: relative; border-left: 3px solid var(--acent); }
-        .act-extra-titulo { font-size: 0.8rem; font-weight: 700; color: var(--prim); margin-bottom: 10px; }
-        .btn-del-act { position: absolute; top: 8px; right: 8px; background: #f8d7da; border: none; color: var(--error); font-size: 0.8rem; cursor: pointer; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
-        #btn-add-act { width: 100%; padding: 12px; background: transparent; border: 2px dashed var(--acent); border-radius: 8px; color: var(--prim); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 6px; display: block; }
-        #btn-add-act:hover { background: rgba(225,190,124,0.1); }
     </style>
 </head>
 <body>
 
 <div class="header">
     <img src="https://ubuntuaventuras.github.io/ubuntu-web/logo.png" alt="Ubuntu Aventuras"
-         style="width:70px;height:70px;object-fit:contain;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto;"
+         style="width:70px; height:70px; object-fit:contain; margin-bottom:10px;
+                display:block; margin-left:auto; margin-right:auto;"
          onerror="this.style.display='none'">
     <div class="badge">Contrato Digital · PTA-LE78</div>
     <h1>Ubuntu Aventuras</h1>
@@ -128,12 +129,13 @@
     <div class="reserva-row"><span>Actividad</span><span id="ri-actividad">—</span></div>
     <div class="reserva-row"><span>Fecha</span><span id="ri-fecha">—</span></div>
     <div class="reserva-row"><span>Hora</span><span id="ri-hora">—</span></div>
-    <div class="reserva-row"><span id="ri-label-cantidad">Personas</span><span id="ri-personas">—</span></div>
+    <div class="reserva-row"><span>Personas</span><span id="ri-personas">—</span></div>
     <div class="reserva-row"><span>Precio</span><span id="ri-precio">—</span></div>
 </div>
 
 <div id="formulario">
 
+    <!-- DATOS PERSONALES -->
     <div class="seccion">
         <h2>👤 Datos personales</h2>
         <div class="campo">
@@ -147,8 +149,7 @@
             </div>
             <div class="campo">
                 <label>Fecha de nacimiento *</label>
-                <input type="date" id="fecha-nac" onchange="validarEdad(this)">
-                <div class="campo-msg" id="msg-edad"></div>
+                <input type="date" id="fecha-nac">
             </div>
         </div>
         <div class="campo-row">
@@ -158,8 +159,7 @@
             </div>
             <div class="campo">
                 <label>Email</label>
-                <input type="email" id="email" placeholder="tu@email.com" autocomplete="email" onblur="validarEmail(this)">
-                <div class="campo-msg" id="msg-email"></div>
+                <input type="email" id="email" placeholder="tu@email.com" autocomplete="email">
             </div>
         </div>
         <div class="campo">
@@ -168,11 +168,12 @@
         </div>
     </div>
 
+    <!-- MENORES -->
     <div class="seccion">
         <h2>👶 Menores de edad</h2>
         <div class="campo">
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-                <input type="checkbox" id="tiene-menores" style="width:18px;height:18px;accent-color:var(--prim);" onchange="toggleMenores()">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="tiene-menores" style="width:18px; height:18px; accent-color:var(--prim);" onchange="toggleMenores()">
                 Hay menores de edad en el grupo
             </label>
         </div>
@@ -194,13 +195,15 @@
         </div>
     </div>
 
+    <!-- PARTICIPANTES ADICIONALES -->
     <div class="seccion">
         <h2>👥 Participantes adicionales</h2>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px;">Añade el nombre y DNI de cada participante además del titular.</p>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:14px;">Añade el nombre y DNI de cada participante además del titular.</p>
         <div id="participantes-lista"></div>
         <button id="btn-add-part" type="button" onclick="addParticipante()">+ Añadir participante</button>
     </div>
 
+    <!-- DATOS DE LA ACTIVIDAD -->
     <div class="seccion">
         <h2>🚣 Datos de la actividad</h2>
         <div class="campo-row">
@@ -222,26 +225,24 @@
                 </select>
             </div>
             <div class="campo">
-                <label id="label-cantidad">Personas *</label>
+                <label>Personas *</label>
                 <input type="number" id="cantidad" min="1" max="60" value="1" onchange="calcularPrecioAuto()">
             </div>
         </div>
-        <div class="campo-row" id="fila-duracion">
+        <div class="campo-row">
             <div class="campo">
                 <label>Duración</label>
                 <select id="duracion" onchange="calcularPrecioAuto()">
-                    <option>1 hora</option><option>2 horas</option><option>3 horas</option>
+                    <option>1 hora</option>
+                    <option>2 horas</option>
+                    <option>Medio dia</option>
                     <option>Todo el dia</option>
                 </select>
             </div>
             <div class="campo">
                 <label>Precio total (€)</label>
-                <input type="number" id="precio" min="0" step="0.01" value="0" style="background:#f0f6f8;color:var(--prim);font-weight:700;">
+                <input type="number" id="precio" min="0" step="0.01" value="0" style="background:#f0f6f8; color:var(--prim); font-weight:700;">
             </div>
-        </div>
-        <div class="campo" id="fila-precio-solo" style="display:none;">
-            <label>Precio total (€)</label>
-            <input type="number" id="precio-solo" min="0" step="0.01" value="0" style="background:#f0f6f8;color:var(--prim);font-weight:700;" onchange="document.getElementById('precio').value=this.value">
         </div>
         <div class="campo-row">
             <div class="campo">
@@ -253,52 +254,47 @@
                 <input type="time" id="hora-inicio">
             </div>
         </div>
-        <div class="campo-row" id="fila-bisontes" style="display:none;">
-            <div class="campo">
-                <label>👨 Adultos (≥12 años) — 59 €/pers.</label>
-                <input type="number" id="bisontes-adultos" min="0" max="30" value="0" onchange="calcBisontes()">
-            </div>
-            <div class="campo">
-                <label>👶 Niños (&lt;12 años) — 49 €/pers.</label>
-                <input type="number" id="bisontes-ninos" min="0" max="30" value="0" onchange="calcBisontes()">
-            </div>
-        </div>
+
+        <!-- Aviso específico por actividad -->
         <div class="aviso-actividad" id="aviso-actividad"></div>
     </div>
 
-    <div class="seccion">
-        <h2>➕ Actividades adicionales <span style="font-weight:400;font-size:0.8rem;color:var(--muted)">(opcional)</span></h2>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px;">Si el grupo realiza más de una actividad en el mismo contrato, añádelas aquí.</p>
-        <div id="acts-extra-lista"></div>
-        <button id="btn-add-act" type="button" onclick="addActExtra()">+ Añadir actividad adicional</button>
-    </div>
-
+    <!-- APTITUD FÍSICA -->
     <div class="seccion">
         <h2>💪 Aptitud física y estado de salud</h2>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:14px;">Lee atentamente las declaraciones correspondientes a tu actividad y marca cada una para confirmar.</p>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:14px;">
+            Lee atentamente las declaraciones correspondientes a tu actividad y marca cada una para confirmar.
+        </p>
         <div id="aptitud-checks"></div>
     </div>
 
+    <!-- CONDICIONES GENERALES -->
     <div class="seccion">
         <h2>📋 Condiciones generales y específicas</h2>
         <div class="clausulas-box" id="clausulas-box"></div>
         <div class="check-item">
             <input type="checkbox" id="acepta-condiciones">
-            <label for="acepta-condiciones">He leído y acepto todas las condiciones generales y las condiciones específicas de la actividad contratada con Ubuntu Aventuras.</label>
+            <label for="acepta-condiciones">
+                He leído y acepto todas las condiciones generales y las condiciones específicas de la actividad contratada con Ubuntu Aventuras.
+            </label>
         </div>
     </div>
 
+    <!-- RIESGOS -->
     <div class="seccion">
         <h2>⚠️ Asunción de riesgos</h2>
         <div class="check-item">
             <input type="checkbox" id="acepta-riesgos">
-            <label for="acepta-riesgos">Declaro conocer y asumir los riesgos inherentes a la práctica de la actividad contratada, incluyendo los derivados de las condiciones meteorológicas, del terreno o del entorno natural. Entiendo que Ubuntu Aventuras puede suspender o interrumpir la actividad si aprecia circunstancias que comprometan la seguridad de los participantes o del grupo, sin que ello genere derecho a indemnización, ofreciéndose en su caso un cambio de fecha.</label>
+            <label for="acepta-riesgos">
+                Declaro conocer y asumir los riesgos inherentes a la práctica de la actividad contratada, incluyendo los derivados de las condiciones meteorológicas, del terreno o del entorno natural. Entiendo que Ubuntu Aventuras puede suspender o interrumpir la actividad si aprecia circunstancias que comprometan la seguridad de los participantes o del grupo, sin que ello genere derecho a indemnización, ofreciéndose en su caso un cambio de fecha.
+            </label>
         </div>
     </div>
 
+    <!-- RGPD -->
     <div class="seccion">
         <h2>🔒 Protección de datos (RGPD)</h2>
-        <div style="background:var(--light);border-radius:8px;padding:14px;font-size:0.82rem;color:var(--muted);line-height:1.6;margin-bottom:12px;">
+        <div style="background:var(--light); border-radius:8px; padding:14px; font-size:0.82rem; color:var(--muted); line-height:1.6; margin-bottom:12px;">
             <strong style="color:var(--prim);">Responsable:</strong> Ubuntu Aventuras · Sergio Guerrero Sánchez · CIF 09806738K · hola@ubuntuaventuras.es<br><br>
             <strong style="color:var(--prim);">Finalidad:</strong> Gestión del contrato de alquiler o actividad, seguridad de los participantes y cumplimiento de obligaciones legales.<br><br>
             <strong style="color:var(--prim);">Conservación:</strong> Los datos se conservarán durante el tiempo necesario para cumplir con la finalidad y las obligaciones legales aplicables.<br><br>
@@ -307,13 +303,16 @@
         </div>
         <div class="check-item">
             <input type="checkbox" id="acepta-rgpd">
-            <label for="acepta-rgpd">He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a> de Ubuntu Aventuras y consiento el tratamiento de mis datos personales para la gestión de este contrato.</label>
+            <label for="acepta-rgpd">
+                He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a> de Ubuntu Aventuras y consiento el tratamiento de mis datos personales para la gestión de este contrato.
+            </label>
         </div>
     </div>
 
+    <!-- FIRMA -->
     <div class="seccion">
         <h2>✍️ Firma</h2>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:12px;">Firma con el dedo en el recuadro.</p>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">Firma con el dedo en el recuadro.</p>
         <div class="firma-container">
             <canvas id="canvas-firma"></canvas>
         </div>
@@ -321,18 +320,27 @@
         <div class="firma-ok" id="firma-ok">✅ Firma registrada</div>
     </div>
 
-    <button class="btn-guardar" id="btn-guardar" onclick="guardarContrato()">💾 Firmar y guardar contrato</button>
+    <button class="btn-guardar" id="btn-guardar" onclick="guardarContrato()">
+        💾 Firmar y guardar contrato
+    </button>
     <div class="msg" id="msg-result"></div>
 </div>
 
+<!-- PANTALLA ÉXITO -->
 <div class="exito-screen" id="exito-screen">
     <div class="exito-icon">✅</div>
     <h2>¡Contrato firmado!</h2>
-    <p>Tu contrato ha sido registrado correctamente.<br>Número de referencia: <strong id="contrato-id-ok"></strong></p>
+    <p>
+        Tu contrato ha sido registrado correctamente.<br>
+        Número de referencia: <strong id="contrato-id-ok"></strong>
+    </p>
     <br>
     <button class="btn-descarga" onclick="descargarPDF()">📄 Descargar mi contrato</button>
     <br><br>
-    <p style="font-size:0.85rem;">Ubuntu Aventuras te espera.<br>📞 655 703 034 · ✉️ hola@ubuntuaventuras.es</p>
+    <p style="font-size:0.85rem;">
+        Ubuntu Aventuras te espera.<br>
+        📞 655 703 034 · 💬 Bizum: 605 702 670
+    </p>
 </div>
 
 <div class="footer-mini">
@@ -345,23 +353,7 @@
 const SUPABASE_URL  = 'https://rhuypwyxoethdezglcah.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_TqI43DBHh_K5mnYVE_f0sA_5dOokgsT';
 
-const SIN_DURACION = ['Ruta Bisontes','Senderismo','Ferrata Cistierna','Ferrata Sabero','Ferrata Valdeón','Alquiler equipos ferrata','Grupos'];
-
-const TARIFAS = {
-    "Kayak":        {"1 hora":10,"2 horas":18,"3 horas":24,"Todo el dia":30},
-    "Paddle surf":  {"1 hora":15,"2 horas":25,"3 horas":32,"Todo el dia":40},
-    "Hidropedales": {"1 hora":30,"2 horas":50},
-    "Ebikes":       {"1 hora":15,"Medio dia":30,"Todo el dia":60},
-    "Ruta Bisontes":{"_adulto":59,"_nino":49},
-};
-
-const DURACIONES = {
-    "Kayak":       ["1 hora","2 horas","3 horas","Todo el dia"],
-    "Paddle surf": ["1 hora","2 horas","3 horas","Todo el dia"],
-    "Hidropedales":["1 hora","2 horas"],
-    "Ebikes":      ["1 hora","Medio dia","Todo el dia"],
-};
-
+// ── CONDICIONES POR ACTIVIDAD ──
 const CONDICIONES_ESPECIFICAS = {
     acuaticas: [
         "Es obligatorio el uso del chaleco salvavidas en todo momento durante la actividad.",
@@ -401,20 +393,20 @@ const CONDICIONES_GENERALES = [
     "Ubuntu Aventuras se reserva el derecho de suspender o interrumpir la actividad por condiciones meteorológicas adversas, por razones de seguridad o por cualquier causa justificada, ofreciendo en su caso un cambio de fecha sin coste adicional.",
     "Ubuntu Aventuras puede impedir la participación o interrumpir la actividad de cualquier participante si aprecia circunstancias que puedan comprometer su seguridad, la del grupo o el normal desarrollo de la actividad.",
     "Ubuntu Aventuras no se responsabiliza de los objetos personales perdidos, olvidados o dañados durante el transcurso de la actividad.",
-    "El pago se realiza en el momento de inicio de la actividad, mediante efectivo o tarjeta.",  // sin Bizum
+    "El pago se realiza en el momento de inicio de la actividad, mediante efectivo, tarjeta o Bizum (605 702 670).",
     "Se debe respetar en todo momento el entorno natural y las indicaciones del personal de Ubuntu Aventuras.",
 ];
 
 const APTITUD_BASE = [
-    {id:"apt_general", texto:"Declaro encontrarme en condiciones físicas adecuadas para realizar la actividad contratada y no padecer ninguna limitación o circunstancia médica que pueda poner en riesgo mi seguridad, la del grupo o el normal desarrollo de la actividad. En caso de duda, me comprometo a informar previamente a Ubuntu Aventuras."},
-    {id:"apt_alcohol", texto:"Declaro no estar bajo los efectos del alcohol, drogas u otras sustancias que puedan alterar mi capacidad de reacción o coordinación durante la actividad."},
+    { id: "apt_general", texto: "Declaro encontrarme en condiciones físicas adecuadas para realizar la actividad contratada y no padecer ninguna limitación o circunstancia médica que pueda poner en riesgo mi seguridad, la del grupo o el normal desarrollo de la actividad. En caso de duda, me comprometo a informar previamente a Ubuntu Aventuras." },
+    { id: "apt_alcohol", texto: "Declaro no estar bajo los efectos del alcohol, drogas u otras sustancias que puedan alterar mi capacidad de reacción o coordinación durante la actividad." },
 ];
 
 const APTITUD_ESPECIFICA = {
-    acuaticas: {id:"apt_acua",   texto:"Para actividades acuáticas: declaro saber nadar o haber informado previamente de cualquier circunstancia que requiera adaptación o asistencia. Entiendo que el chaleco salvavidas es obligatorio en todo momento."},
-    ebikes:    {id:"apt_bike",   texto:"Para actividades en bicicleta: declaro saber montar con plena autonomía y no presentar limitaciones físicas que comprometan la conducción segura."},
-    ferrata:   {id:"apt_ferrata",texto:"Para actividades de vía ferrata: declaro conocer las exigencias físicas y técnicas de la actividad y encontrarme en condiciones adecuadas para realizarla."},
-    senderismo:{id:"apt_sende",  texto:"Para rutas a pie: declaro poder realizar caminatas por terreno irregular durante el tiempo previsto de la actividad y llevar el equipamiento adecuado."},
+    acuaticas: { id: "apt_acua", texto: "Para actividades acuáticas: declaro saber nadar o haber informado previamente de cualquier circunstancia que requiera adaptación o asistencia. Entiendo que el chaleco salvavidas es obligatorio en todo momento." },
+    ebikes:    { id: "apt_bike", texto: "Para actividades en bicicleta: declaro saber montar con plena autonomía y no presentar limitaciones físicas que comprometan la conducción segura." },
+    ferrata:   { id: "apt_ferrata", texto: "Para actividades de vía ferrata: declaro conocer las exigencias físicas y técnicas de la actividad y encontrarme en condiciones adecuadas para realizarla." },
+    senderismo:{ id: "apt_sende", texto: "Para rutas a pie: declaro poder realizar caminatas por terreno irregular durante el tiempo previsto de la actividad y llevar el equipamiento adecuado." },
 };
 
 const AVISOS_ACTIVIDAD = {
@@ -422,6 +414,14 @@ const AVISOS_ACTIVIDAD = {
     ebikes:    "🚴 Actividad en bicicleta — Es necesario saber montar en bici con autonomía.",
     ferrata:   "🧗 Vía ferrata — Actividad de montaña con exigencia física media-alta. Equipo de seguridad obligatorio.",
     senderismo:"🥾 Ruta a pie — Terreno irregular. Lleva calzado adecuado y ropa apropiada.",
+};
+
+const TARIFAS = {
+    "Kayak":        {"1 hora": 10, "2 horas": 18, "Medio dia": 25, "Todo el dia": 30},
+    "Paddle surf":  {"1 hora": 15, "2 horas": 25, "Todo el dia": 30},
+    "Hidropedales": {"1 hora": 30, "2 horas": 50},
+    "Ebikes":       {"1 hora": 15, "Medio dia": 30, "Todo el dia": 60},
+    "Ruta Bisontes":{"1 hora": 65},
 };
 
 function _tipoActividad(act) {
@@ -433,101 +433,76 @@ function _tipoActividad(act) {
 }
 
 function onActividadChange() {
-    const act = document.getElementById('actividad').value;
-    const sinDur = SIN_DURACION.includes(act);
-    const esHidro = act === 'Hidropedales';
-    const esBisontes = act === 'Ruta Bisontes';
-
-    document.getElementById('fila-duracion').style.display = sinDur ? 'none' : 'grid';
-    document.getElementById('fila-precio-solo').style.display = sinDur ? 'block' : 'none';
-    document.getElementById('fila-bisontes').style.display = esBisontes ? 'grid' : 'none';
-
-    if (!sinDur) {
-        const sel = document.getElementById('duracion');
-        const opciones = DURACIONES[act] || ["1 hora","2 horas","3 horas","Todo el dia"];
-        const valorActual = sel.value;
-        sel.innerHTML = opciones.map(o => `<option value="${o}">${o}</option>`).join('');
-        if (opciones.includes(valorActual)) sel.value = valorActual;
-    }
-
-    document.getElementById('label-cantidad').textContent = esHidro ? 'Hidropedales *' : 'Personas *';
-    const inputCant = document.getElementById('cantidad');
-    inputCant.max = esHidro ? 3 : 60;
-    if (esHidro && parseInt(inputCant.value) > 3) inputCant.value = 3;
-
-    const campoCant = document.querySelector('.campo:has(#cantidad)');
-    if (campoCant) campoCant.style.display = esBisontes ? 'none' : 'block';
-
     calcularPrecioAuto();
-    if (esBisontes) calcBisontes();
     actualizarCondiciones();
 }
 
 function calcularPrecioAuto() {
     const act = document.getElementById('actividad').value;
-    const sinDur = SIN_DURACION.includes(act);
-    const dur = sinDur ? null : document.getElementById('duracion').value;
-    const cant = parseInt(document.getElementById('cantidad').value) || 1;
+    const dur = document.getElementById('duracion').value;
+    const per = parseInt(document.getElementById('cantidad').value) || 1;
     const t = TARIFAS[act];
-    let precio = 0;
-    if (t && act !== 'Ruta Bisontes' && !sinDur && dur && t[dur] !== undefined) {
-        precio = t[dur] * cant;
-    }
-    if (sinDur) {
-        if (precio > 0) document.getElementById('precio-solo').value = precio.toFixed(2);
-        document.getElementById('precio').value = document.getElementById('precio-solo').value;
-    } else {
-        if (precio > 0) document.getElementById('precio').value = precio.toFixed(2);
-    }
-}
-
-function calcBisontes() {
-    const adultos = parseInt(document.getElementById('bisontes-adultos').value) || 0;
-    const ninos   = parseInt(document.getElementById('bisontes-ninos').value) || 0;
-    const precio  = adultos * 59 + ninos * 49;
-    document.getElementById('precio-solo').value = precio.toFixed(2);
-    document.getElementById('precio').value = precio.toFixed(2);
-    document.getElementById('cantidad').value = adultos + ninos;
+    if (t && t[dur]) document.getElementById('precio').value = (t[dur] * per).toFixed(2);
 }
 
 function actualizarCondiciones() {
     const act = document.getElementById('actividad').value;
     if (!act) return;
     const tipo = _tipoActividad(act);
-    const aviso = document.getElementById('aviso-actividad');
-    if (AVISOS_ACTIVIDAD[tipo]) { aviso.textContent = AVISOS_ACTIVIDAD[tipo]; aviso.classList.add('visible'); }
-    else aviso.classList.remove('visible');
 
+    // Aviso
+    const aviso = document.getElementById('aviso-actividad');
+    if (AVISOS_ACTIVIDAD[tipo]) {
+        aviso.textContent = AVISOS_ACTIVIDAD[tipo];
+        aviso.classList.add('visible');
+    } else {
+        aviso.classList.remove('visible');
+    }
+
+    // Cláusulas
     const box = document.getElementById('clausulas-box');
     box.innerHTML = '';
     const especificas = CONDICIONES_ESPECIFICAS[tipo] || CONDICIONES_ESPECIFICAS.grupos;
-    [...especificas, ...CONDICIONES_GENERALES].forEach((c, i) => {
+    const todas = [...especificas, ...CONDICIONES_GENERALES];
+    todas.forEach((c, i) => {
         const p = document.createElement('p');
         p.textContent = `${i+1}. ${c}`;
         box.appendChild(p);
     });
 
+    // Aptitud física
     const cont = document.getElementById('aptitud-checks');
     cont.innerHTML = '';
     const checks = [...APTITUD_BASE];
     if (APTITUD_ESPECIFICA[tipo]) checks.push(APTITUD_ESPECIFICA[tipo]);
+
+    // Si hay menores, añadir declaración del tutor
     if (document.getElementById('tiene-menores').checked) {
-        checks.push({id:"apt_menor", texto:"Como tutor legal, declaro conocer las características de la actividad y autorizo expresamente la participación del menor/es indicados, manifestando que se encuentran en condiciones físicas adecuadas para realizarla."});
+        checks.push({
+            id: "apt_menor",
+            texto: "Como tutor legal, declaro conocer las características de la actividad y autorizo expresamente la participación del menor/es indicados, manifestando que se encuentran en condiciones físicas adecuadas para realizarla."
+        });
     }
+
     checks.forEach(ch => {
         const div = document.createElement('div');
         div.className = 'check-item';
-        div.innerHTML = `<input type="checkbox" id="${ch.id}"><label for="${ch.id}">${ch.texto}</label>`;
+        div.innerHTML = `
+            <input type="checkbox" id="${ch.id}">
+            <label for="${ch.id}">${ch.texto}</label>
+        `;
         cont.appendChild(div);
     });
 }
 
+// ── MENORES ──
 function toggleMenores() {
     const checked = document.getElementById('tiene-menores').checked;
     document.getElementById('tutor-fields').style.display = checked ? 'block' : 'none';
     actualizarCondiciones();
 }
 
+// ── PARTICIPANTES ──
 let numPart = 0;
 function addParticipante() {
     numPart++;
@@ -542,42 +517,50 @@ function addParticipante() {
     document.getElementById('participantes-lista').appendChild(div);
 }
 
+// ── FECHA Y HORA ACTUALES ──
 (function() {
     const hoy = new Date();
-    const pad = n => String(n).padStart(2,'0');
-    document.getElementById('fecha-actividad').value = `${hoy.getFullYear()}-${pad(hoy.getMonth()+1)}-${pad(hoy.getDate())}`;
-    document.getElementById('hora-inicio').value = `${pad(hoy.getHours())}:${pad(hoy.getMinutes())}`;
+    const pad = n => String(n).padStart(2, '0');
+    document.getElementById('fecha-actividad').value =
+        `${hoy.getFullYear()}-${pad(hoy.getMonth()+1)}-${pad(hoy.getDate())}`;
+    document.getElementById('hora-inicio').value =
+        `${pad(hoy.getHours())}:${pad(hoy.getMinutes())}`;
 })();
 
+// ── CARGAR RESERVA DESDE URL ──
 const params = new URLSearchParams(window.location.search);
 const reservaId = params.get('reserva');
 if (reservaId) {
     fetch(`${SUPABASE_URL}/rest/v1/reservas?id=eq.${reservaId}&select=*`, {
-        headers: {'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`}
+        headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
     }).then(r => r.json()).then(data => {
         if (data && data[0]) {
             const r = data[0];
-            const esHidro = r.actividad === 'Hidropedales';
             document.getElementById('reserva-info').classList.add('visible');
             document.getElementById('ri-actividad').textContent = r.actividad || '—';
             document.getElementById('ri-fecha').textContent = r.fecha_actividad ? new Date(r.fecha_actividad).toLocaleDateString('es-ES') : '—';
             document.getElementById('ri-hora').textContent = r.hora_inicio ? r.hora_inicio.slice(0,5) : '—';
-            document.getElementById('ri-label-cantidad').textContent = esHidro ? 'Hidropedales' : 'Personas';
             document.getElementById('ri-personas').textContent = r.personas || '—';
             document.getElementById('ri-precio').textContent = r.precio ? r.precio + ' €' : '—';
-            if (r.nombre)   document.getElementById('nombre').value = r.nombre;
-            if (r.actividad) { document.getElementById('actividad').value = r.actividad; onActividadChange(); }
-            if (r.personas) document.getElementById('cantidad').value = r.personas;
-            if (r.duracion) { const sel = document.getElementById('duracion'); if ([...sel.options].some(o => o.value === r.duracion)) sel.value = r.duracion; }
-            if (r.precio)   { document.getElementById('precio').value = r.precio; document.getElementById('precio-solo').value = r.precio; }
+
+            if (r.nombre)          document.getElementById('nombre').value = r.nombre;
+            if (r.actividad) {
+                document.getElementById('actividad').value = r.actividad;
+                onActividadChange();
+            }
+            if (r.personas)        document.getElementById('cantidad').value = r.personas;
+            if (r.duracion)        document.getElementById('duracion').value = r.duracion;
+            if (r.precio)          document.getElementById('precio').value = r.precio;
             if (r.fecha_actividad) document.getElementById('fecha-actividad').value = r.fecha_actividad;
             if (r.hora_inicio)     document.getElementById('hora-inicio').value = r.hora_inicio.slice(0,5);
+
             document.getElementById('btn-guardar').dataset.reservaId = r.id;
             document.getElementById('btn-guardar').dataset.reservationId = r.reservation_id || '';
         }
     }).catch(() => {});
 }
 
+// ── CANVAS FIRMA ──
 const canvas = document.getElementById('canvas-firma');
 const ctx = canvas.getContext('2d');
 let dibujando = false, firmaVacia = true;
@@ -595,7 +578,7 @@ window.addEventListener('resize', ajustarCanvas);
 function getPos(e) {
     const rect = canvas.getBoundingClientRect();
     const src = e.touches ? e.touches[0] : e;
-    return {x: src.clientX - rect.left, y: src.clientY - rect.top};
+    return { x: src.clientX - rect.left, y: src.clientY - rect.top };
 }
 canvas.addEventListener('mousedown',  e => { dibujando=true; ctx.beginPath(); const p=getPos(e); ctx.moveTo(p.x,p.y); firmaVacia=false; });
 canvas.addEventListener('mousemove',  e => { if(!dibujando) return; const p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
@@ -610,6 +593,7 @@ function limpiarFirma() {
     document.getElementById('firma-ok').classList.remove('visible');
 }
 
+// ── HASH simple del contenido del contrato (evidencia técnica) ──
 async function _hashContrato(texto) {
     try {
         const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
@@ -617,26 +601,27 @@ async function _hashContrato(texto) {
     } catch(e) { return 'no-disponible'; }
 }
 
-// ── GUARDAR CONTRATO — actividades_extra incluidas en el POST ──
+// ── GUARDAR CONTRATO ──
 async function guardarContrato() {
     const btn = document.getElementById('btn-guardar');
     const msg = document.getElementById('msg-result');
     msg.className = 'msg';
 
-    const act = document.getElementById('actividad').value;
-    const sinDur = SIN_DURACION.includes(act);
     const nombre    = document.getElementById('nombre').value.trim();
     const dni       = document.getElementById('dni').value.trim();
     const telefono  = document.getElementById('telefono').value.trim();
     const provincia = document.getElementById('provincia').value.trim();
+    const actividad = document.getElementById('actividad').value;
     const fechaAct  = document.getElementById('fecha-actividad').value;
-    const tieneMenores   = document.getElementById('tiene-menores').checked;
-    const tutorNombre    = document.getElementById('tutor-nombre')?.value.trim() || '';
-    const tutorDni       = document.getElementById('tutor-dni')?.value.trim() || '';
-    const menoresNombres = document.getElementById('menores-nombres')?.value.trim() || '';
+    const tieneMenores  = document.getElementById('tiene-menores').checked;
+    const tutorNombre   = document.getElementById('tutor-nombre')?.value.trim() || '';
+    const tutorDni      = document.getElementById('tutor-dni')?.value.trim() || '';
+    const menoresNombres= document.getElementById('menores-nombres')?.value.trim() || '';
     const aceptaCond    = document.getElementById('acepta-condiciones').checked;
     const aceptaRiesgos = document.getElementById('acepta-riesgos').checked;
     const aceptaRgpd    = document.getElementById('acepta-rgpd').checked;
+
+    // Checks de aptitud
     const aptitudChecks = document.querySelectorAll('#aptitud-checks input[type="checkbox"]');
     const todasAptitud  = [...aptitudChecks].every(c => c.checked);
 
@@ -645,34 +630,20 @@ async function guardarContrato() {
     if (!dni)        errores.push('DNI');
     if (!telefono)   errores.push('Teléfono');
     if (!provincia)  errores.push('Provincia');
-    if (!act)        errores.push('Actividad');
+    if (!actividad)  errores.push('Actividad');
     if (!fechaAct)   errores.push('Fecha');
-    if (tieneMenores && !tutorNombre)    errores.push('Nombre del tutor');
+    if (tieneMenores && !tutorNombre) errores.push('Nombre del tutor');
     if (tieneMenores && !menoresNombres) errores.push('Nombre del menor');
-    if (!todasAptitud)  errores.push('Declaraciones de aptitud física (marca todas)');
-    if (!aceptaCond)    errores.push('Condiciones generales');
+    if (!todasAptitud) errores.push('Declaraciones de aptitud física (marca todas)');
+    if (!aceptaCond)   errores.push('Condiciones generales');
     if (!aceptaRiesgos) errores.push('Asunción de riesgos');
-    if (!aceptaRgpd)    errores.push('Política de privacidad');
-    if (firmaVacia)     errores.push('Firma digital');
-
-    const fechaNac = document.getElementById('fecha-nac').value;
-    if (!fechaNac) {
-        errores.push('Fecha de nacimiento (obligatoria para verificar mayoría de edad)');
-    } else {
-        const hoy = new Date(); const nac = new Date(fechaNac);
-        let edad = hoy.getFullYear() - nac.getFullYear();
-        if (hoy < new Date(hoy.getFullYear(), nac.getMonth(), nac.getDate())) edad--;
-        if (edad < 18 && !tieneMenores)
-            errores.push('Debes ser mayor de 18 años para firmar el contrato. Si eres menor, un tutor legal debe firmar en tu nombre');
-    }
-    const emailVal = document.getElementById('email').value.trim();
-    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailVal))
-        errores.push('El email no tiene un formato válido');
+    if (!aceptaRgpd)   errores.push('Política de privacidad');
+    if (firmaVacia)    errores.push('Firma digital');
 
     if (errores.length > 0) {
         msg.className = 'msg error';
         msg.textContent = `⚠️ Pendiente: ${errores.join(', ')}`;
-        msg.scrollIntoView({behavior:'smooth'});
+        msg.scrollIntoView({ behavior: 'smooth' });
         return;
     }
 
@@ -683,32 +654,32 @@ async function guardarContrato() {
     for (let i = 1; i <= numPart; i++) {
         const n = document.getElementById(`part-nombre-${i}`)?.value.trim();
         const d = document.getElementById(`part-dni-${i}`)?.value.trim();
-        if (n) participantes.push({nombre: n, dni: d || ''});
+        if (n) participantes.push({ nombre: n, dni: d || '' });
     }
 
     const firmaData = canvas.toDataURL('image/png');
-    const ahora    = new Date();
-    const duracion = sinDur ? null : document.getElementById('duracion').value;
-    const precioVal = sinDur
-        ? parseFloat(document.getElementById('precio-solo').value) || 0
-        : parseFloat(document.getElementById('precio').value) || 0;
+    const ahora = new Date();
 
-    const hashContrato = await _hashContrato(`${nombre}|${dni}|${act}|${fechaAct}|${ahora.toISOString()}`);
+    // Contenido para hash
+    const contenidoHash = `${nombre}|${dni}|${actividad}|${fechaAct}|${ahora.toISOString()}`;
+    const hashContrato = await _hashContrato(contenidoHash);
 
-    // actividades_extra van en el POST directamente (no en PATCH tardío)
-    const actividadesExtra = getActividadesExtra();
+    const tipo = _tipoActividad(actividad);
+    const especificas = CONDICIONES_ESPECIFICAS[tipo] || CONDICIONES_ESPECIFICAS.grupos;
+    const todasCondiciones = [...especificas, ...CONDICIONES_GENERALES];
 
     const datos = {
         reservation_id:    btn.dataset.reservationId || null,
-        actividades_extra: actividadesExtra,
-        actividad:         act,
+        actividad,
         cantidad:          parseInt(document.getElementById('cantidad').value) || 1,
-        duracion,
-        precio:            precioVal,
+        duracion:          document.getElementById('duracion').value,
+        precio:            parseFloat(document.getElementById('precio').value) || 0,
         hora_inicio:       document.getElementById('hora-inicio').value + ':00',
         hora_fin:          null,
         fecha_actividad:   fechaAct,
-        nombre, provincia, telefono,
+        nombre,
+        provincia,
+        telefono,
         email:             document.getElementById('email').value.trim() || null,
         dni,
         fecha_nacimiento:  document.getElementById('fecha-nac').value || null,
@@ -736,17 +707,20 @@ async function guardarContrato() {
             },
             body: JSON.stringify(datos)
         });
+
         const result = await res.json();
+
         if (res.ok || res.status === 201) {
             const id = Array.isArray(result) ? result[0]?.id : result?.id;
-            window._contratoFirmado = {...datos, id};
+            window._contratoFirmado = { ...datos, id };
             window._firmaDataURL = firmaData;
-            _subirPDFStorage(id, {...datos, id}, firmaData).catch(() => {});
+
+            // Generar y subir PDF a Supabase Storage
+            _subirPDFStorage(id, datos, firmaData).catch(() => {});
+
             document.getElementById('formulario').style.display = 'none';
             document.getElementById('exito-screen').classList.add('visible');
             document.getElementById('contrato-id-ok').textContent = `#${id || '—'}`;
-            // Guardar id en el DOM para recuperarlo si _contratoFirmado se pierde
-            document.getElementById('exito-screen').dataset.contratoId = id;
         } else {
             throw new Error(result?.message || `Error ${res.status}`);
         }
@@ -755,521 +729,298 @@ async function guardarContrato() {
         msg.textContent = `❌ Error: ${err.message}. Llámanos al 655 703 034.`;
         btn.disabled = false;
         btn.textContent = '💾 Firmar y guardar contrato';
-        msg.scrollIntoView({behavior:'smooth'});
+        msg.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
+// ── SUBIR PDF A SUPABASE STORAGE ──
 async function _subirPDFStorage(contratoId, datos, firmaData) {
-    // El PDF definitivo lo genera el servidor (Python/ReportLab) cuando la app procesa el contrato.
-    // Aquí solo guardamos el path esperado para que descargarPDF() sepa dónde buscarlo.
-    const nombre   = (datos.nombre || 'cliente').replace(/\s+/g,'_');
+    // Cargar jsPDF si no está
+    if (typeof window.jspdf === 'undefined') {
+        await new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+            s.onload = resolve; s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+
+    // Generar PDF como blob
+    const pdfBlob = await _generarPDFBlob({ ...datos, id: contratoId }, firmaData);
+    if (!pdfBlob) return;
+
+    const nombre = (datos.nombre || 'cliente').replace(/\s+/g, '_');
     const fileName = `contrato_${contratoId}_${nombre}.pdf`;
     const filePath = `${contratoId}/${fileName}`;
-    // Guardar pdf_path en Supabase (el servidor subirá el PDF real)
-    try {
+
+    // Subir a Supabase Storage
+    const uploadRes = await fetch(
+        `${SUPABASE_URL}/storage/v1/object/contratos-pdf/${filePath}`,
+        {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON,
+                'Authorization': `Bearer ${SUPABASE_ANON}`,
+                'Content-Type': 'application/pdf',
+                'x-upsert': 'true',
+            },
+            body: pdfBlob,
+        }
+    );
+
+    if (uploadRes.ok) {
+        // Guardar ruta del PDF en el contrato
         await fetch(`${SUPABASE_URL}/rest/v1/contratos?id=eq.${contratoId}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type':'application/json',
+                'Content-Type': 'application/json',
                 'apikey': SUPABASE_ANON,
-                'Authorization': `Bearer ${SUPABASE_ANON}`
+                'Authorization': `Bearer ${SUPABASE_ANON}`,
             },
-            body: JSON.stringify({pdf_path: filePath}),
+            body: JSON.stringify({ pdf_path: filePath }),
         });
-        window._pdfPath = filePath;
-    } catch(e) { console.warn('pdf_path not saved:', e); }
+    }
 }
 
+// Versión que devuelve Blob en lugar de descargar
 async function _generarPDFBlob(d, firmaDataURL) {
     try {
-        const {jsPDF} = window.jspdf;
-        const doc = new jsPDF({unit:'mm', format:'a4'});
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+        const PRIM = [46,91,107], ACENT = [225,190,124], LIGHT = [240,246,248];
+        let y = 12;
 
-        // ── Colores ──
-        const C_PRIM  = [46,  91, 107];   // #2e5b6b
-        const C_ACENT = [225,190, 124];   // #e1be7c
-        const C_LIGHT = [240,246, 248];   // #f0f6f8
-        const C_WARN  = [255,243, 205];   // amarillo menores
-        const C_WARN_B= [249,168,  37];   // borde menores
-        const C_WARN_T= [133, 77,  14];   // texto menores
-        const C_GREY  = [120,120, 120];
-        const C_DARK  = [30,  30,  30];
-        const W=210, M=14, CW=W-M*2;
-        let y=0;
-
-        // ── Logo ──
-        let logoImg=null;
-        try {
-            const r=await fetch('https://ubuntuaventuras.github.io/ubuntu-web/logo.png');
-            if(r.ok){const bl=await r.blob();logoImg=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(bl);});}
-        } catch(e){}
-
-        // ══════════════════════════════════════
-        // CABECERA
-        // ══════════════════════════════════════
-        doc.setFillColor(...C_PRIM);
-        doc.rect(0,0,W,32,'F');
-        if(logoImg){try{doc.addImage(logoImg,'PNG',M,6,18,18);}catch(e){}}
-        const tx=logoImg?M+24:W/2;
-        const tAlign=logoImg?'left':'center';
+        // ── Cabecera compacta ──
+        doc.setFillColor(...PRIM);
+        doc.rect(0, 0, 210, 22, 'F');
         doc.setTextColor(255,255,255);
-        doc.setFont('helvetica','bold'); doc.setFontSize(12);
-        doc.text('CONTRATO DE ACTIVIDAD', tx, 13, {align:tAlign});
-        doc.setFont('helvetica','normal'); doc.setFontSize(8);
-        doc.text('Ubuntu Aventuras - PTA-LE78', tx, 19, {align:tAlign});
-        doc.setFontSize(6.5);
-        doc.text('hola@ubuntuaventuras.es   ·   655 703 034', tx, 24, {align:tAlign});
-        const firmadoFmt = d.firmado_en ? new Date(d.firmado_en).toLocaleString('es-ES') : '-';
-        doc.setFontSize(6); doc.setTextColor(200,220,230);
-        doc.text('Contrato #'+(d.id||'-')+'   ·   Firmado: '+firmadoFmt, W-M, 29, {align:'right'});
-        y=38;
+        doc.setFontSize(11); doc.setFont('helvetica','bold');
+        doc.text('CONTRATO — UBUNTU AVENTURAS · PTA-LE78', 105, 9, {align:'center'});
+        doc.setFontSize(7); doc.setFont('helvetica','normal');
+        doc.text(`#${d.id||'—'} · Firmado: ${new Date(d.firmado_en).toLocaleString('es-ES')} · hola@ubuntuaventuras.es · 655 703 034`, 105, 17, {align:'center'});
+        y = 28;
 
         // ── Helpers ──
-        const chk = h => { if(y+h>282){doc.addPage();y=14;} };
-
-        const secHdr = titulo => {
-            chk(10);
-            doc.setFillColor(...C_LIGHT);
-            doc.rect(M,y,CW,7,'F');
-            doc.setDrawColor(...C_PRIM); doc.setLineWidth(0.3);
-            doc.line(M,y,M,y+7);
-            doc.setTextColor(...C_PRIM); doc.setFont('helvetica','bold'); doc.setFontSize(8);
-            doc.text(titulo, M+3, y+4.8);
-            y+=9;
+        const seccion = (t) => {
+            doc.setFillColor(...LIGHT);
+            doc.rect(14, y, 182, 5, 'F');
+            doc.setTextColor(...PRIM); doc.setFont('helvetica','bold'); doc.setFontSize(7.5);
+            doc.text(t, 16, y+3.5); y += 7;
+        };
+        // Campo en 2 columnas: izq label+valor, der label+valor
+        const fila2 = (l1,v1,l2,v2) => {
+            doc.setFont('helvetica','bold'); doc.setTextColor(...PRIM); doc.setFontSize(7);
+            doc.text(l1, 16, y); doc.text(l2 || '', 110, y);
+            doc.setFont('helvetica','normal'); doc.setTextColor(40,40,40);
+            doc.text(String(v1||'—'), 42, y);
+            if (l2) doc.text(String(v2||'—'), 136, y);
+            y += 5;
         };
 
-        // Fila de dos columnas: label bold azul + valor negro
-        const row2=(l1,v1,l2,v2)=>{
-            chk(6);
-            const mid=M+CW/2;
-            doc.setFont('helvetica','bold'); doc.setTextColor(...C_PRIM); doc.setFontSize(7);
-            doc.text(String(l1||''),M,y);
-            doc.setFont('helvetica','normal'); doc.setTextColor(...C_DARK);
-            doc.text(String(v1||'-').slice(0,36), M+24, y);
-            if(l2){
-                doc.setFont('helvetica','bold'); doc.setTextColor(...C_PRIM);
-                doc.text(String(l2||''), mid+2, y);
-                doc.setFont('helvetica','normal'); doc.setTextColor(...C_DARK);
-                doc.text(String(v2||'-').slice(0,26), mid+24, y);
-            }
-            y+=5.5;
-        };
+        // ── Datos cliente + actividad en 2 columnas ──
+        seccion('DATOS DEL CLIENTE Y ACTIVIDAD');
+        fila2('Nombre:',   d.nombre,       'Actividad:', d.actividad);
+        fila2('DNI:',      d.dni,          'Fecha:',     new Date(d.fecha_actividad).toLocaleDateString('es-ES'));
+        fila2('F. nacim.:', d.fecha_nacimiento||'—', 'Hora:', (d.hora_inicio||'').slice(0,5));
+        fila2('Teléfono:', d.telefono,     'Duración:',  d.duracion);
+        fila2('Email:',    d.email||'—',   'Personas:',  d.cantidad);
+        fila2('Provincia:', d.provincia,   'Precio:',    `${parseFloat(d.precio||0).toFixed(2)} EUR`);
+        y += 2;
 
-        // Fila completa (ancho total)
-        const rowFull=(label,valor)=>{
-            chk(6);
-            doc.setFont('helvetica','bold'); doc.setTextColor(...C_PRIM); doc.setFontSize(7);
-            doc.text(String(label||''), M, y);
-            doc.setFont('helvetica','normal'); doc.setTextColor(...C_DARK);
-            doc.text(String(valor||'-').slice(0,70), M+24, y);
-            y+=5.5;
-        };
-
-        // ══════════════════════════════════════
-        // DATOS DEL CLIENTE
-        // ══════════════════════════════════════
-        secHdr('DATOS DEL CLIENTE');
-        const fActFmt = d.fecha_actividad ? new Date(d.fecha_actividad+'T12:00:00').toLocaleDateString('es-ES') : '-';
-        const fNacFmt = d.fecha_nacimiento ? new Date(d.fecha_nacimiento+'T12:00:00').toLocaleDateString('es-ES') : '-';
-        row2('Nombre:',        d.nombre,             'DNI / NIE:',     d.dni);
-        row2('F. nacimiento:', fNacFmt,               'Teléfono:',      d.telefono);
-        row2('Email:',         d.email||'-',          'Provincia:',     d.provincia);
-        row2('Fecha actividad:',fActFmt,              'Hora inicio:',   (d.hora_inicio||'').slice(0,5));
-        y+=2;
-
-        // ══════════════════════════════════════
-        // MENORES (si hay)
-        // ══════════════════════════════════════
-        if(d.tiene_menores && d.tutor_nombre){
-            chk(28);
-            // Banner
-            doc.setFillColor(...C_WARN);
-            doc.rect(M,y,CW,8,'F');
-            doc.setDrawColor(...C_WARN_B); doc.setLineWidth(0.8);
-            doc.rect(M,y,CW,8,'S');
-            doc.setFont('helvetica','bold'); doc.setTextColor(...C_WARN_T); doc.setFontSize(8);
-            doc.text('!! MENORES DE EDAD  --  EL TUTOR LEGAL FIRMA ESTE CONTRATO !!', M+3, y+5.4);
-            y+=10;
-            row2('Tutor legal:',    d.tutor_nombre,  'DNI tutor:',  d.tutor_dni||'-');
-            if(d.menores_nombres) rowFull('Menor(es):', d.menores_nombres);
-            chk(10);
-            doc.setFont('helvetica','italic'); doc.setTextColor(...C_WARN_T); doc.setFontSize(6.2);
-            const decl='Como tutor/representante legal FIRMO este contrato asumiendo la plena responsabilidad sobre la participacion de los menores indicados y certifico que se encuentran en condiciones fisicas adecuadas para realizar la actividad.';
-            const dL=doc.splitTextToSize(decl,CW); doc.text(dL,M,y); y+=dL.length*3.2+4;
-            doc.setTextColor(...C_DARK);
+        // ── Menores (solo si hay) ──
+        if (d.tiene_menores && d.tutor_nombre) {
+            seccion('MENORES DE EDAD');
+            fila2('Tutor:', d.tutor_nombre, 'DNI tutor:', d.tutor_dni||'—');
+            fila2('Menor(es):', d.menores_nombres||'—', '', '');
+            y += 2;
         }
 
-        // ══════════════════════════════════════
-        // ACTIVIDADES CONTRATADAS
-        // ══════════════════════════════════════
-        secHdr('ACTIVIDADES CONTRATADAS');
-
-        // Cabecera tabla
-        doc.setFillColor(...C_PRIM); doc.rect(M,y,CW,6.5,'F');
-        doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(7);
-        const cols=[M+2, M+58, M+82, M+118, M+150];
-        ['Actividad','Cantidad','Duración','Hora inicio','Precio'].forEach((h,i)=>doc.text(h,cols[i],y+4.5));
-        y+=7.5;
-
-        const actRow=(act,cant,dur,hora,precio,altBg)=>{
-            chk(7);
-            if(altBg){doc.setFillColor(...C_LIGHT);doc.rect(M,y-1,CW,6.5,'F');}
-            doc.setTextColor(...C_DARK); doc.setFont('helvetica','normal'); doc.setFontSize(7);
-            doc.text(String(act||'-'),      cols[0], y+3.5);
-            doc.text(String(cant||'-'),     cols[1], y+3.5);
-            doc.text(String(dur||'-'),      cols[2], y+3.5);
-            doc.text(String(hora||'-').slice(0,5), cols[3], y+3.5);
-            doc.setFont('helvetica','bold');
-            doc.text(parseFloat(precio||0).toFixed(2)+' EUR', cols[4], y+3.5);
-            y+=6.5;
-        };
-
-        const cantPrinc = d.actividad==='Hidropedales' ? d.cantidad+' hidrop.' : d.cantidad+' pers.';
-        actRow(d.actividad, cantPrinc, d.duracion, (d.hora_inicio||'').slice(0,5), d.precio, true);
-
-        const extras = d.actividades_extra||[];
-        extras.forEach((ae,i)=>{
-            const cantAe = ae.actividad==='Hidropedales' ? ae.cantidad+' hidrop.' : ae.cantidad+' pers.';
-            actRow(ae.actividad, cantAe, ae.duracion, (ae.hora_inicio||'').slice(0,5), ae.precio, i%2===0);
-        });
-
-        // Fila total
-        y+=2; chk(9);
-        doc.setFillColor(...C_ACENT); doc.rect(M,y,CW,9,'F');
-        doc.setDrawColor(...C_PRIM); doc.setLineWidth(0.4); doc.rect(M,y,CW,9,'S');
-        doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(...C_PRIM);
-        const total=parseFloat(d.precio||0)+extras.reduce((s,ae)=>s+parseFloat(ae.precio||0),0);
-        doc.text('PRECIO TOTAL', M+4, y+6.2);
-        doc.text(total.toFixed(2)+' EUR', M+CW-3, y+6.2, {align:'right'});
-        y+=13;
-
-        // ══════════════════════════════════════
-        // PARTICIPANTES ADICIONALES
-        // ══════════════════════════════════════
-        const parts=d.participantes||[];
-        if(parts.length>0){
-            secHdr('PARTICIPANTES ADICIONALES');
-            // Mini tabla
-            doc.setFillColor(...C_PRIM); doc.rect(M,y,CW,6,'F');
-            doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(7);
-            doc.text('Nombre', M+2, y+4.2); doc.text('DNI / NIE', M+CW/2+2, y+4.2);
-            y+=7;
-            parts.forEach((p,i)=>{
-                chk(6);
-                if(i%2===0){doc.setFillColor(...C_LIGHT);doc.rect(M,y-1,CW,6,'F');}
-                doc.setTextColor(...C_DARK); doc.setFont('helvetica','normal'); doc.setFontSize(7);
-                doc.text(String(p.nombre||'-').slice(0,40), M+2, y+3.5);
-                doc.text(String(p.dni||'-'), M+CW/2+2, y+3.5);
-                y+=6;
-            });
-            y+=3;
+        // ── Participantes (solo si hay) ──
+        if (d.participantes && d.participantes.length > 0) {
+            seccion('PARTICIPANTES ADICIONALES');
+            d.participantes.forEach((p,i) => fila2(`${i+1}. ${p.nombre}`, `DNI: ${p.dni}`, '', ''));
+            y += 2;
         }
 
-        // ══════════════════════════════════════
-        // CONDICIONES
-        // ══════════════════════════════════════
-        secHdr('CONDICIONES Y DECLARACIONES');
-        const tipo=_tipoActividad(d.actividad);
-        const todas=[...(CONDICIONES_ESPECIFICAS[tipo]||CONDICIONES_ESPECIFICAS.grupos), ...CONDICIONES_GENERALES];
-        doc.setFont('helvetica','normal'); doc.setTextColor(50,50,50); doc.setFontSize(5.8);
-        const cColW=CW/2-3, cMid=M+CW/2+3;
-        let yL=y, yR=y;
-        todas.forEach((c,i)=>{
-            const txt=(i+1)+'. '+c;
-            const isL=i%2===0;
-            const lns=doc.splitTextToSize(txt, cColW);
-            const h=lns.length*3.1+1;
-            chk(h);
-            if(isL){doc.text(lns,M,yL);yL+=h;}
-            else   {doc.text(lns,cMid,yR);yR+=h;}
-        });
-        y=Math.max(yL,yR)+5;
-
-        // ══════════════════════════════════════
-        // RIESGOS Y RGPD
-        // ══════════════════════════════════════
-        chk(14); secHdr('DECLARACIONES, RIESGOS Y PROTECCION DE DATOS');
+        // ── Condiciones en 2 columnas ──
+        seccion('CONDICIONES GENERALES ACEPTADAS');
+        const tipo = _tipoActividad(d.actividad);
+        const especificas = CONDICIONES_ESPECIFICAS[tipo] || CONDICIONES_ESPECIFICAS.grupos;
+        const todas = [...especificas, ...CONDICIONES_GENERALES];
         doc.setFont('helvetica','normal'); doc.setTextColor(50,50,50); doc.setFontSize(6);
-        const legal='Declaro conocer y asumir los riesgos inherentes a la actividad y encontrarme en condiciones fisicas adecuadas para realizarla, no padeciendo limitacion medica que comprometa mi seguridad. Declaro no estar bajo efectos del alcohol ni de sustancias que alteren mi capacidad. Responsable: Ubuntu Aventuras · CIF 09806738K · hola@ubuntuaventuras.es. Finalidad: gestion del contrato. Base legal: Art. 6.1.b RGPD. Derechos de acceso, rectificacion y supresion en hola@ubuntuaventuras.es.';
-        const lL=doc.splitTextToSize(legal,CW); chk(lL.length*3.2+4); doc.text(lL,M,y); y+=lL.length*3.2+5;
+        const midX = 107; const colW = 88;
+        let yL = y, yR = y;
+        todas.forEach((c, i) => {
+            const txt = `${i+1}. ${c}`;
+            const col = i % 2 === 0 ? 'L' : 'R';
+            const xPos = col === 'L' ? 16 : midX;
+            const lines = doc.splitTextToSize(txt, colW);
+            const h = lines.length * 3.5 + 1;
+            if (col === 'L') {
+                doc.text(lines, xPos, yL); yL += h;
+            } else {
+                doc.text(lines, xPos, yR); yR += h;
+            }
+        });
+        y = Math.max(yL, yR) + 3;
 
-        // ══════════════════════════════════════
-        // FIRMA DIGITAL
-        // ══════════════════════════════════════
-        chk(40); secHdr('FIRMA DIGITAL');
+        // ── Riesgos + RGPD en línea ──
+        seccion('RIESGOS, APTITUD FÍSICA Y PROTECCIÓN DE DATOS');
+        doc.setFont('helvetica','normal'); doc.setTextColor(50,50,50); doc.setFontSize(6);
+        const textoLegal = "El cliente declara conocer y asumir los riesgos inherentes a la actividad y encontrarse en condiciones físicas adecuadas. " +
+            "Responsable datos: Ubuntu Aventuras · CIF 09806738K · hola@ubuntuaventuras.es. Finalidad: gestión del contrato. Base legal: Art. 6.1.b RGPD.";
+        const legalLines = doc.splitTextToSize(textoLegal, 182);
+        doc.text(legalLines, 16, y); y += legalLines.length * 3.5 + 3;
 
-        // Quién firma
-        const esTutor = d.tiene_menores && d.tutor_nombre;
-        const firmNom = esTutor ? d.tutor_nombre : (d.nombre||'-');
-        const firmDni = esTutor ? (d.tutor_dni||'-') : (d.dni||'-');
-        const firmRol = esTutor ? 'Tutor legal de: '+(d.menores_nombres||'-') : 'Titular del contrato';
-
-        const firma = firmaDataURL||window._firmaDataURL;
-        const fW=62, fH=28;
-
-        // Caja imagen firma
-        doc.setFillColor(...C_LIGHT);
-        doc.setDrawColor(...C_PRIM); doc.setLineWidth(0.5);
-        doc.rect(M, y, fW, fH, 'FD');
-        if(firma && firma.startsWith('data:image')){
-            try{doc.addImage(firma,'PNG',M+1,y+1,fW-2,fH-2);}catch(e){}
-        } else {
-            doc.setTextColor(160,160,160); doc.setFontSize(7);
-            doc.text('Firma digital', M+fW/2, y+fH/2, {align:'center'});
+        // ── Firma ──
+        seccion('FIRMA DIGITAL');
+        const firma = firmaDataURL || window._firmaDataURL;
+        const firmaX = 16, firmaW = 55, firmaH = 18;
+        if (firma && firma.startsWith('data:image')) {
+            try { doc.addImage(firma, 'PNG', firmaX, y, firmaW, firmaH); } catch(e) {}
         }
+        doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60); doc.setFontSize(7);
+        doc.text(`${d.nombre}`, firmaX + firmaW + 6, y + 6);
+        doc.text(`Firmado: ${new Date(d.firmado_en).toLocaleString('es-ES')}`, firmaX + firmaW + 6, y + 11);
+        doc.setFontSize(6); doc.setTextColor(140,140,140);
+        doc.text(`Hash: ${(d.hash_contrato||'—').slice(0,32)}...`, firmaX + firmaW + 6, y + 16);
+        y += firmaH + 4;
 
-        // Info firmante (columna derecha)
-        const xI=M+fW+6;
-        doc.setFont('helvetica','bold'); doc.setTextColor(...C_PRIM); doc.setFontSize(9.5);
-        doc.text(firmNom, xI, y+8);
-        if(esTutor){
-            doc.setFont('helvetica','bold'); doc.setTextColor(...C_WARN_T); doc.setFontSize(7);
-            doc.text(firmRol, xI, y+14);
-        } else {
-            doc.setFont('helvetica','normal'); doc.setTextColor(...C_GREY); doc.setFontSize(7);
-            doc.text(firmRol, xI, y+14);
-        }
-        doc.setFont('helvetica','normal'); doc.setTextColor(...C_DARK); doc.setFontSize(7);
-        doc.text('DNI / NIE: '+firmDni, xI, y+20);
-        doc.text('Firmado: '+firmadoFmt, xI, y+26);
-
-        // Si hay menores también mostrar el titular del contrato
-        if(esTutor){
-            doc.setFont('helvetica','normal'); doc.setTextColor(...C_GREY); doc.setFontSize(6.5);
-            doc.text('Titular contrato: '+(d.nombre||'-'), xI, y+32);
-        }
-
-        y+=fH+5;
-
-        // Hash SHA-256 completo
-        chk(6);
-        doc.setFontSize(5); doc.setTextColor(160,160,160);
-        doc.text('SHA-256: '+(d.hash_contrato||'-'), M, y); y+=5;
-
-        // ══════════════════════════════════════
-        // PIE
-        // ══════════════════════════════════════
-        chk(10);
-        doc.setDrawColor(...C_ACENT); doc.setLineWidth(0.6); doc.line(M,y,W-M,y); y+=4;
-        doc.setFontSize(6); doc.setTextColor(...C_GREY); doc.setFont('helvetica','normal');
-        doc.text('Ubuntu Aventuras · CIF 09806738K · Ctra. Riano-Verdiago, 24960 Verdiago (Leon) · ubuntuaventuras.es · hola@ubuntuaventuras.es · 655 703 034', W/2, y, {align:'center'});
+        // ── Footer ──
+        doc.setDrawColor(...ACENT); doc.setLineWidth(0.5); doc.line(14, y, 196, y); y += 4;
+        doc.setFontSize(6.5); doc.setTextColor(150,150,150);
+        doc.text('Ubuntu Aventuras · CIF 09806738K · Ctra. Riaño-Verdiago, 24960 Verdiago (León) · ubuntuaventuras.es', 105, y, {align:'center'});
 
         return doc.output('blob');
-    } catch(e){ console.error('PDF error:',e); return null; }
-}
-async function descargarPDF() {
-    const btn = document.querySelector('.btn-descarga');
-    if (btn) { btn.disabled = true; btn.textContent = '⏳ Preparando PDF...'; }
-
-    // Recuperar id: desde _contratoFirmado o desde el DOM
-    const d   = window._contratoFirmado;
-    const cid = d?.id || document.getElementById('exito-screen')?.dataset?.contratoId;
-    if (!cid) {
-        if (btn) { btn.disabled = false; btn.textContent = '📄 Descargar mi contrato'; }
-        alert('No se puede identificar el contrato. Contacta con nosotros: 655 703 034');
-        return;
+    } catch(e) {
+        return null;
     }
-
-    // 1. Intentar obtener el PDF del servidor desde Supabase Storage
-    let serverOk = false;
-    try {
-        const chk = await fetch(
-            `${SUPABASE_URL}/rest/v1/contratos?id=eq.${cid}&select=pdf_path`,
-            { headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` } }
-        );
-        const rows = await chk.json();
-        const path = rows?.[0]?.pdf_path || window._pdfPath;
-        if (path && path.length > 5) {
-            // Crear URL pública firmada via endpoint correcto de Supabase Storage
-            const sigRes = await fetch(
-                `${SUPABASE_URL}/storage/v1/object/sign/contratos-pdf/${path}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON,
-                        'Authorization': `Bearer ${SUPABASE_ANON}`
-                    },
-                    body: JSON.stringify({ expiresIn: 3600 })
-                }
-            );
-            if (sigRes.ok) {
-                const sigData = await sigRes.json();
-                // El campo puede llamarse signedURL, signedUrl o signed_url según versión
-                const signedUrl = sigData.signedURL || sigData.signedUrl || sigData.signed_url;
-                if (signedUrl) {
-                    // Construir URL completa si viene solo el path
-                    const fullUrl = signedUrl.startsWith('http')
-                        ? signedUrl
-                        : `${SUPABASE_URL}/storage/v1${signedUrl}`;
-                    if (btn) { btn.disabled = false; btn.textContent = '📄 Descargar mi contrato'; }
-                    window.open(fullUrl, '_blank');
-                    serverOk = true;
-                }
-            }
-        }
-    } catch(e) { console.warn('Storage fetch failed:', e); }
-
-    if (serverOk) return;
-
-    // 2. Fallback: generar PDF en el navegador con jsPDF (mismo diseño)
-    if (btn) btn.textContent = '⏳ Generando PDF...';
-    try {
-        if (typeof window.jspdf === 'undefined') {
-            await new Promise((resolve, reject) => {
-                const s = document.createElement('script');
-                s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-                s.onload = resolve; s.onerror = reject;
-                document.head.appendChild(s);
-            });
-        }
-        const blob = await _generarPDFBlob(d, window._firmaDataURL);
-        if (blob) {
-            const url = URL.createObjectURL(blob);
-            const a   = document.createElement('a');
-            a.href    = url;
-            a.download = `contrato_${cid}_${(d?.nombre||'ubuntu').replace(/\s+/g,'_')}.pdf`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-    } catch(e) { console.error('PDF fallback failed:', e); }
-
-    if (btn) { btn.disabled = false; btn.textContent = '📄 Descargar mi contrato'; }
 }
 
-function validarEmail(input) {
-    const val = input.value.trim();
-    const msg = document.getElementById('msg-email');
-    if (!val) { input.className=''; msg.className='campo-msg'; return; }
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
-    input.className = ok ? 'campo-ok' : 'campo-error';
-    msg.className = ok ? 'campo-msg ok' : 'campo-msg error';
-    msg.textContent = ok ? '✅ Email válido' : '❌ Formato incorrecto (ej: nombre@dominio.com)';
-}
-
-function validarEdad(input) {
-    const val = input.value;
-    const msg = document.getElementById('msg-edad');
-    if (!val) { input.className=''; msg.className='campo-msg'; return; }
-    const hoy=new Date(), nac=new Date(val);
-    let edad = hoy.getFullYear()-nac.getFullYear();
-    if (hoy < new Date(hoy.getFullYear(),nac.getMonth(),nac.getDate())) edad--;
-    const esMenor = document.getElementById('tiene-menores').checked;
-    if (edad<0||edad>120) {
-        input.className='campo-error'; msg.className='campo-msg error'; msg.textContent='❌ Fecha de nacimiento inválida';
-    } else if (edad<18 && !esMenor) {
-        input.className='campo-error'; msg.className='campo-msg error';
-        msg.textContent=`❌ Menor de edad (${edad} años). Activa la opción de menores y añade un tutor.`;
+// ── DESCARGAR PDF ──
+function descargarPDF() {
+    const d = window._contratoFirmado;
+    if (!d) return;
+    if (typeof window.jspdf === 'undefined') {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        s.onload = () => _generarPDF(d);
+        document.head.appendChild(s);
     } else {
-        input.className='campo-ok'; msg.className='campo-msg ok'; msg.textContent=`✅ ${edad} años`;
+        _generarPDF(d);
     }
 }
 
-let numActExtra = 0;
-const ACTS_OPCIONES = ["Kayak","Hidropedales","Paddle surf","Ebikes","Ferrata Cistierna","Ferrata Sabero","Ferrata Valdeón","Alquiler equipos ferrata","Ruta Bisontes","Senderismo","Grupos"];
-
-function addActExtra() {
-    numActExtra++;
-    const id = numActExtra;
-    const horaBase = document.getElementById('hora-inicio').value || '10:00';
-    const div = document.createElement('div');
-    div.className = 'act-extra';
-    div.id = `act-extra-${id}`;
-    div.innerHTML = `
-        <div class="act-extra-titulo">➕ Actividad adicional ${id}</div>
-        <button class="btn-del-act" type="button" onclick="delActExtra(${id})" title="Eliminar">✕ Quitar</button>
-        <div class="campo-row">
-            <div class="campo">
-                <label>Actividad</label>
-                <select id="ae-act-${id}" onchange="onAeChange(${id})">
-                    ${ACTS_OPCIONES.map(a=>`<option value="${a}">${a}</option>`).join('')}
-                </select>
-            </div>
-            <div class="campo" id="ae-cant-campo-${id}">
-                <label id="ae-label-cant-${id}">Personas</label>
-                <input type="number" id="ae-cant-${id}" min="1" max="60" value="1" onchange="calcAeTotal()">
-            </div>
-        </div>
-        <div class="campo-row" id="ae-dur-fila-${id}">
-            <div class="campo">
-                <label>Duración</label>
-                <select id="ae-dur-${id}" onchange="calcAeTotal()">
-                    <option>1 hora</option><option>2 horas</option><option>3 horas</option><option>Todo el dia</option>
-                </select>
-            </div>
-            <div class="campo">
-                <label>Hora inicio</label>
-                <input type="time" id="ae-hora-${id}" value="${horaBase}">
-            </div>
-        </div>
-        <div class="campo-row">
-            <div class="campo">
-                <label>Precio extra (€)</label>
-                <input type="number" id="ae-precio-${id}" min="0" step="0.01" value="0" style="background:#f0f6f8;color:var(--prim);font-weight:700;" readonly>
-            </div>
-            <div class="campo" style="display:flex;align-items:flex-end;padding-bottom:2px;">
-                <small style="color:var(--muted);font-size:0.78rem;">El precio se calcula automáticamente según la tarifa de la actividad.</small>
-            </div>
-        </div>`;
-    document.getElementById('acts-extra-lista').appendChild(div);
-    onAeChange(id);
+function _generarPDF(d) {
+    _generarPDFBlob(d, window._firmaDataURL).then(blob => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `contrato_${d.id||'ubuntu'}_${(d.nombre||'').replace(/\s+/g,'_')}.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
+    });
 }
+function _generarPDF_unused(d) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const PRIM = [46,91,107], ACENT = [225,190,124], LIGHT = [240,246,248];
+    let y = 15;
 
-function delActExtra(id) {
-    const el = document.getElementById(`act-extra-${id}`);
-    if (el) el.remove();
-    calcAeTotal();
-}
+    // Cabecera
+    doc.setFillColor(...PRIM);
+    doc.rect(0, 0, 210, 30, 'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(13); doc.setFont('helvetica','bold');
+    doc.text('CONTRATO DE ACTIVIDAD — UBUNTU AVENTURAS', 105, 12, {align:'center'});
+    doc.setFontSize(8); doc.setFont('helvetica','normal');
+    doc.text('PTA-LE78 · Tel. 655 703 034 · Bizum: 605 702 670 · hola@ubuntuaventuras.es', 105, 20, {align:'center'});
+    doc.text(`Nº contrato: #${d.id || '—'}  ·  Firmado: ${new Date(d.firmado_en).toLocaleString('es-ES')}  ·  Hash: ${(d.hash_contrato||'').slice(0,16)}...`, 105, 27, {align:'center'});
+    y = 38;
 
-function onAeChange(id) {
-    const act = document.getElementById(`ae-act-${id}`).value;
-    const sinDur = SIN_DURACION.includes(act);
-    const esHidro = act === 'Hidropedales';
-    const durFila = document.getElementById(`ae-dur-fila-${id}`);
-    if (durFila) durFila.style.display = sinDur ? 'none' : 'grid';
-    const labelCant = document.getElementById(`ae-label-cant-${id}`);
-    if (labelCant) labelCant.textContent = esHidro ? 'Hidropedales (máx 3)' : 'Personas';
-    const inputCant = document.getElementById(`ae-cant-${id}`);
-    if (inputCant) { inputCant.max = esHidro ? 3 : 60; if (esHidro && inputCant.value > 3) inputCant.value = 3; }
-    if (!sinDur) {
-        const sel = document.getElementById(`ae-dur-${id}`);
-        const opts = DURACIONES[act] || ["1 hora","2 horas","3 horas","Todo el dia"];
-        sel.innerHTML = opts.map(o => `<option>${o}</option>`).join('');
+    const seccion = (t) => {
+        if (y > 260) { doc.addPage(); y = 15; }
+        doc.setFillColor(...LIGHT);
+        doc.rect(14, y, 182, 7, 'F');
+        doc.setTextColor(...PRIM); doc.setFont('helvetica','bold'); doc.setFontSize(9);
+        doc.text(t, 16, y+5); y += 10;
+    };
+    const campo = (l, v) => {
+        if (y > 275) { doc.addPage(); y = 15; }
+        doc.setFont('helvetica','bold'); doc.setTextColor(...PRIM); doc.setFontSize(8);
+        doc.text(l, 16, y);
+        doc.setFont('helvetica','normal'); doc.setTextColor(50,50,50);
+        doc.text(String(v||'—'), 65, y); y += 6;
+    };
+
+    seccion('DATOS DEL CLIENTE');
+    campo('Nombre:', d.nombre); campo('DNI/Pasaporte:', d.dni);
+    campo('Fecha nacimiento:', d.fecha_nacimiento||'—');
+    campo('Teléfono:', d.telefono); campo('Email:', d.email||'—');
+    campo('Provincia:', d.provincia); y += 2;
+
+    if (d.tiene_menores) {
+        seccion('MENORES DE EDAD');
+        campo('Tutor legal:', d.tutor_nombre||'—'); campo('DNI tutor:', d.tutor_dni||'—');
+        campo('Menor(es):', d.menores_nombres||'—'); y += 2;
     }
-    calcAeTotal();
-}
 
-function calcAeTotal() {
-    document.querySelectorAll('.act-extra').forEach(div => {
-        const id = div.id.replace('act-extra-','');
-        const act = document.getElementById(`ae-act-${id}`)?.value;
-        const sinDur = SIN_DURACION.includes(act);
-        const dur = sinDur ? null : document.getElementById(`ae-dur-${id}`)?.value;
-        const cant = parseInt(document.getElementById(`ae-cant-${id}`)?.value) || 1;
-        const t = TARIFAS[act] || {};
-        let precio = 0;
-        if (!sinDur && dur && t[dur] !== undefined) precio = t[dur] * cant;
-        const pEl = document.getElementById(`ae-precio-${id}`);
-        if (pEl) pEl.value = precio.toFixed(2);
-    });
-}
+    if (d.participantes && d.participantes.length > 0) {
+        seccion('PARTICIPANTES ADICIONALES');
+        d.participantes.forEach((p,i) => campo(`${i+1}. ${p.nombre}`, `DNI: ${p.dni}`));
+        y += 2;
+    }
 
-function getActividadesExtra() {
-    const lista = [];
-    document.querySelectorAll('.act-extra').forEach(div => {
-        const id = div.id.replace('act-extra-','');
-        const act = document.getElementById(`ae-act-${id}`)?.value;
-        if (!act) return;
-        const sinDur = SIN_DURACION.includes(act);
-        lista.push({
-            actividad:   act,
-            cantidad:    parseInt(document.getElementById(`ae-cant-${id}`)?.value) || 1,
-            duracion:    sinDur ? null : document.getElementById(`ae-dur-${id}`)?.value,
-            hora_inicio: document.getElementById(`ae-hora-${id}`)?.value || null,
-            precio:      parseFloat(document.getElementById(`ae-precio-${id}`)?.value) || 0,
-        });
-    });
-    return lista;
+    seccion('DATOS DE LA ACTIVIDAD');
+    campo('Actividad:', d.actividad);
+    campo('Fecha:', new Date(d.fecha_actividad).toLocaleDateString('es-ES'));
+    campo('Hora inicio:', (d.hora_inicio||'').slice(0,5));
+    campo('Duración:', d.duracion);
+    campo('Personas:', d.cantidad);
+    campo('Precio total:', `${parseFloat(d.precio||0).toFixed(2)} EUR`); y += 2;
+
+    seccion('CONDICIONES ACEPTADAS');
+    doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60); doc.setFontSize(7);
+    const tipo = _tipoActividad(d.actividad);
+    const especificas = CONDICIONES_ESPECIFICAS[tipo] || CONDICIONES_ESPECIFICAS.grupos;
+    const todas = [...especificas, ...CONDICIONES_GENERALES];
+    todas.forEach((c,i) => {
+        if (y > 270) { doc.addPage(); y = 15; }
+        const lines = doc.splitTextToSize(`${i+1}. ${c}`, 178);
+        doc.text(lines, 16, y); y += lines.length * 4 + 2;
+    }); y += 2;
+
+    seccion('RIESGOS Y APTITUD FÍSICA');
+    doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60); doc.setFontSize(7);
+    const riesgo = "El cliente declara conocer y asumir los riesgos inherentes a la actividad, incluyendo condiciones meteorológicas y del terreno. Declara encontrarse en condiciones físicas adecuadas para realizarla.";
+    const rLines = doc.splitTextToSize(riesgo, 178);
+    doc.text(rLines, 16, y); y += rLines.length * 4 + 4;
+
+    seccion('PROTECCIÓN DE DATOS (RGPD)');
+    doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60); doc.setFontSize(7);
+    const rgpd = "Responsable: Ubuntu Aventuras · Sergio Guerrero Sánchez · CIF 09806738K. Finalidad: gestión del contrato y seguridad. Derechos: hola@ubuntuaventuras.es. Base legal: Art. 6.1.b y 6.1.c RGPD.";
+    const rg = doc.splitTextToSize(rgpd, 178);
+    doc.text(rg, 16, y); y += rg.length * 4 + 4;
+
+    if (y > 220) { doc.addPage(); y = 15; }
+    seccion('FIRMA DIGITAL');
+    const firma = window._firmaDataURL;
+    if (firma && firma.startsWith('data:image')) {
+        try { doc.addImage(firma, 'PNG', 14, y, 60, 22); } catch(e) {}
+    }
+    y += 26;
+    doc.setFont('helvetica','normal'); doc.setTextColor(80,80,80); doc.setFontSize(8);
+    doc.text(`${d.nombre} — Firmado digitalmente el ${new Date(d.firmado_en).toLocaleString('es-ES')}`, 14, y); y += 5;
+    doc.setFontSize(7); doc.setTextColor(130,130,130);
+    doc.text(`Hash SHA-256: ${d.hash_contrato||'—'}`, 14, y); y += 8;
+
+    doc.setDrawColor(...ACENT); doc.setLineWidth(0.8); doc.line(14, y, 196, y); y += 5;
+    doc.setFontSize(7); doc.setTextColor(150,150,150);
+    doc.text('Ubuntu Aventuras · CIF 09806738K · Carretera Riaño-Verdiago, 24960 Verdiago (León)', 105, y, {align:'center'});
+
+    const nombre_archivo = `contrato_${d.id||'ubuntu'}_${(d.nombre||'').replace(/\s+/g,'_')}.pdf`;
+    doc.save(nombre_archivo);
 }
 </script>
 </body>
